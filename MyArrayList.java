@@ -10,15 +10,30 @@
  */
 
 import objectdraw.*;
+import java.util.*;
 
 /**
  *
  */
 public class MyArrayList implements MyDataStructure {
 
+  public static final int HALF = 2;
+
+  // the canvas to draw the ArrayList
   private DrawingCanvas myCanvas;
 
+  // number of cells initially
   private static final int INITIAL_SIZE = 10;
+
+  // the size of width and height of a cell
+  public static final int FRAME_SIZE = 50;
+
+  // LinkedList to store a list of cells
+  private LinkedList<MyCell> myList;
+
+  // positions of the first cell on the canvas
+  private int xPos = 0;
+  private int yPos = 0;
 
   /**
    * MyArrayList constructor, to initialize the data structure and draw out the
@@ -26,11 +41,24 @@ public class MyArrayList implements MyDataStructure {
    */
   public MyArrayList(DrawingCanvas canvas) {
 
+    // store the drawing canvas
     myCanvas = canvas;
 
+    myList = new LinkedList<>();
+
+    // initialize the x and y positions
+    xPos = FRAME_SIZE;
+    yPos = canvas.getHeight() / HALF - FRAME_SIZE / HALF;
+
+    // temporary x position for creating cells
+    int x = xPos;
+
+    // for loop to initialize an empty array
     for (int i = 0; i < INITIAL_SIZE; i++) {
 
       // add empty array
+      myList.add(new MyCell(new Location(x, yPos), myCanvas));
+      x += FRAME_SIZE;
     }
   }
 
@@ -44,17 +72,19 @@ public class MyArrayList implements MyDataStructure {
     private Text value;
     private FramedRect cellFrame;
 
-    // the size of width and height
-    public static final double FRAME_WIDTH = 10;
-    public static final double FRAME_HEIGHT = 10;
+    /**
+     * MyCell constructor to initialize a cell in the ArrayList with no value
+     * in it.
+     */
+    public MyCell(Location location, DrawingCanvas canvas) {
 
-    public MyArrayList(String value, Location location, DrawingCanvas canvas)
-    {
+      int halfFrame = FRAME_SIZE / HALF;
 
-      // place the with the value on the canvas
-      cellFrame = new FramedRect(frameLocation, FRAME_WIDTH, FRAME_HEIGHT,
+      // place the cell with no value on the canvas
+      cellFrame = new FramedRect(location, FRAME_SIZE, FRAME_SIZE, canvas);
+      value = new Text("", location.getX(), location.getY() + halfFrame / HALF,
       canvas);
-      value = new Text(value, location, canvas);
+      value.setFontSize(halfFrame);
     }
   }
 
@@ -70,6 +100,7 @@ public class MyArrayList implements MyDataStructure {
    */
   public boolean add(int number) {
 
+    return true;
   }
 
   /**
@@ -84,6 +115,7 @@ public class MyArrayList implements MyDataStructure {
    */
   public boolean find(int number) {
 
+    return true;
   }
 
   /**
@@ -98,5 +130,6 @@ public class MyArrayList implements MyDataStructure {
    */
   public boolean remove(int number) {
 
+    return true;
   }
 }

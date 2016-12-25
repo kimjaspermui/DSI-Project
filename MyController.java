@@ -21,6 +21,8 @@ import javax.swing.*;
 public class MyController extends WindowController implements ActionListener {
 // implements MouseListener
 
+  private static final int HALF = 2;
+
   // applet size
   private static final int APPLET_WIDTH = 1275;
   private static final int APPLET_HEIGHT = 730;
@@ -31,8 +33,9 @@ public class MyController extends WindowController implements ActionListener {
   private static final int Y_GAP = 20;
 
   // menu texts from objectdraw
-  private Text instructionText;
+  private Text selectionText;
   private Text arrayListText;
+  private Text instructionText;
 
   // canvas panels
   private JPanel southPanel;
@@ -48,6 +51,8 @@ public class MyController extends WindowController implements ActionListener {
   private JTextField removeTextField;
 
   private static final int TEXT_FIELD_SIZE = 5;
+
+  private MyDataStructure myDS;
 
   /**
    * begin method, where everything starts
@@ -74,17 +79,26 @@ public class MyController extends WindowController implements ActionListener {
    */
   private void setUpMenu() {
 
-    instructionText = new Text("Please choose a data structure:", 0, 0, canvas);
-    instructionText.setFontSize(MENU_FONT_SIZE);
+    // the menu instruction for selecting data structure
+    selectionText = new Text("Please choose a data structure:", 0, 0, canvas);
+    selectionText.setFontSize(MENU_FONT_SIZE);
 
     // data structures selection text
-    arrayListText = new Text("Array List", 0, instructionText.getY() +
+    arrayListText = new Text("Array List", 0, selectionText.getY() +
     MENU_FONT_SIZE + Y_GAP, canvas);
 
     // Text objects can be put into a linkedlist, so this set up can be done in
     // a for loop
     arrayListText.setFontSize(MENU_FONT_SIZE);
     arrayListText.setColor(MENU_FONT_COLOR);
+
+    // create the instruction text
+    instructionText = new Text("Please enter value between 0 to 999 then press "
+    + "corresponding button to add, find, or remove", 0, MENU_FONT_SIZE,
+    canvas);
+    instructionText.setFontSize(MENU_FONT_SIZE / HALF);
+    instructionText.setColor(MENU_FONT_COLOR);
+    instructionText.hide();
   }
 
   /**
@@ -131,6 +145,21 @@ public class MyController extends WindowController implements ActionListener {
   }
 
   /**
+   * hideMenu method, to hide the menu texts from the canvas.
+   * 
+   * @author Jasper
+   */
+  private void hideMenu() {
+
+    // hide the texts
+    selectionText.hide();
+    arrayListText.hide();
+
+    // show the instruction
+    instructionText.show();
+  }
+
+  /**
    * actionPerformed method, to handle event from button clicking.
    * 
    * @param ActionEvent evt - the event that is being triggered.
@@ -146,6 +175,9 @@ public class MyController extends WindowController implements ActionListener {
       // store int to be added
       System.out.println(addTextField.getText());
       addTextField.setText("");
+
+      hideMenu();
+      myDS = new MyArrayList(canvas);
     }
 
     else if (event == findButton) {
