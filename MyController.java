@@ -59,6 +59,12 @@ public class MyController extends WindowController implements ActionListener {
     setUpMenu();
 
     setUpController();
+
+    // wait for user's selection of data structure in a loop
+
+    // hide main menu using a helper method
+
+    // the rest is mouse events
   }
 
   /**

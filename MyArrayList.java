@@ -18,6 +18,8 @@ public class MyArrayList implements MyDataStructure {
 
   private DrawingCanvas myCanvas;
 
+  private static final int INITIAL_SIZE = 10;
+
   /**
    * MyArrayList constructor, to initialize the data structure and draw out the
    * array in the passed in canvas.
@@ -25,19 +27,34 @@ public class MyArrayList implements MyDataStructure {
   public MyArrayList(DrawingCanvas canvas) {
 
     myCanvas = canvas;
+
+    for (int i = 0; i < INITIAL_SIZE; i++) {
+
+      // add empty array
+    }
   }
 
   /**
    * This inner class will create a cell of the array (a box with a value in
    * it).
    */
-  private class MyCell {
+  protected class MyCell {
 
+    // the value inside the cell and the frame
     private Text value;
-    private FramedRect;
+    private FramedRect cellFrame;
 
-    public MyArrayList(int value) {
+    // the size of width and height
+    public static final double FRAME_WIDTH = 10;
+    public static final double FRAME_HEIGHT = 10;
 
+    public MyArrayList(String value, Location location, DrawingCanvas canvas)
+    {
+
+      // place the with the value on the canvas
+      cellFrame = new FramedRect(frameLocation, FRAME_WIDTH, FRAME_HEIGHT,
+      canvas);
+      value = new Text(value, location, canvas);
     }
   }
 
