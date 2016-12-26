@@ -13,6 +13,7 @@ import objectdraw.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.lang.*;
 
 /**
  * This class contains the instructions to create the Graphical User Interface
@@ -238,8 +239,10 @@ MouseListener, MouseMotionListener {
 
     if (event == addButton) {
 
+      // input check
+
       // store int to be added
-      System.out.println(addTextField.getText());
+      myDS.add(Integer.parseInt(addTextField.getText()));
       addTextField.setText("");
     }
 

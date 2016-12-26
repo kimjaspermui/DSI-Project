@@ -35,6 +35,9 @@ public class MyArrayList implements MyDataStructure {
   private int xPos = 0;
   private int yPos = 0;
 
+  // the number of elements in the ArrayList
+  private int nelems = 0;
+
   /**
    * MyArrayList constructor, to initialize the data structure and draw out the
    * array in the passed in canvas.
@@ -86,6 +89,19 @@ public class MyArrayList implements MyDataStructure {
       canvas);
       value.setFontSize(halfFrame);
     }
+
+    /**
+     * setValue method, to change the value in the Text object with the passed
+     * in value.
+     * 
+     * @param int number, the value to be used in the Text object.
+     * 
+     * @author Jasper
+     */
+    public void setValue(int number) {
+
+      value.setText(number);
+    }
   }
 
   /**
@@ -96,9 +112,17 @@ public class MyArrayList implements MyDataStructure {
    * @return a boolean to indicate whether or not the value has been
    * successfully inserted to the data structure.
    *
-   * @author
+   * @author Jasper
    */
   public boolean add(int number) {
+
+    // case when there is still space in the ArrayList
+    if (nelems < myList.size()) {
+
+      MyCell current = myList.get(nelems);
+      current.setValue(number);
+      nelems++;
+    }
 
     return true;
   }
