@@ -242,7 +242,11 @@ MouseListener, MouseMotionListener {
       // input check
 
       // store int to be added
-      myDS.add(Integer.parseInt(addTextField.getText()));
+      if (!onMenu) {
+
+        myDS.add(Integer.parseInt(addTextField.getText()));
+      }
+
       addTextField.setText("");
     }
 

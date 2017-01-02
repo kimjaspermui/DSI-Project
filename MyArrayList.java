@@ -100,7 +100,14 @@ public class MyArrayList implements MyDataStructure {
      */
     public void setValue(int number) {
 
+      // change the text
       value.setText(number);
+
+      // reset the text
+      value.moveTo(cellFrame.getX(), value.getY());
+
+      // position the text
+      value.move(FRAME_SIZE / HALF - (value.getWidth() / HALF), 0);
     }
   }
 
