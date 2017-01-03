@@ -60,7 +60,7 @@ public class MyArrayList implements MyDataStructure {
     for (int i = 0; i < INITIAL_SIZE; i++) {
 
       // add empty array
-      myList.add(new MyCell(new Location(x, yPos), myCanvas));
+      myList.add(new MyCell(i, new Location(x, yPos), myCanvas));
       x += FRAME_SIZE;
     }
   }
@@ -74,12 +74,16 @@ public class MyArrayList implements MyDataStructure {
     // the value inside the cell and the frame
     private Text value;
     private FramedRect cellFrame;
+    private Text index;
+
+    // the offset of the index text from the top of the cell
+    private final int INDEX_OFFSET = 15;
 
     /**
      * MyCell constructor to initialize a cell in the ArrayList with no value
      * in it.
      */
-    public MyCell(Location location, DrawingCanvas canvas) {
+    public MyCell(int i, Location location, DrawingCanvas canvas) {
 
       int halfFrame = FRAME_SIZE / HALF;
 
@@ -88,6 +92,8 @@ public class MyArrayList implements MyDataStructure {
       value = new Text("", location.getX(), location.getY() + halfFrame / HALF,
       canvas);
       value.setFontSize(halfFrame);
+      index = new Text(i, location, canvas);
+      index.move(halfFrame - index.getWidth() / HALF, -INDEX_OFFSET);
     }
 
     /**
