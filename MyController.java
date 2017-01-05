@@ -242,6 +242,8 @@ MouseListener, MouseMotionListener {
       // input check
 
       // store int to be added
+
+      // add the number if it's not in menu
       if (!onMenu) {
 
         myDS.add(Integer.parseInt(addTextField.getText()));
@@ -252,8 +254,14 @@ MouseListener, MouseMotionListener {
 
     else if (event == findButton) {
 
-      // store int to be searched
-      System.out.println(findTextField.getText());
+      // input check
+
+      // search the number when is not in menu
+      if (!onMenu) {
+
+        myDS.find(Integer.parseInt(findTextField.getText()));
+      }
+
       findTextField.setText("");
     }
 

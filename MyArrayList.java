@@ -11,6 +11,7 @@
 
 import objectdraw.*;
 import java.util.*;
+import java.awt.*;
 
 /**
  *
@@ -19,7 +20,9 @@ public class MyArrayList implements MyDataStructure {
 
   public static final int HALF = 2;
 
-  public static final int MESSAGE_OFFSET = 30;
+  public static final int MESSAGE_OFFSET = 100;
+  public static final int MESSAGE_FONT_SIZE = 30;
+  public static final Color MESSAGE_COLOR = Color.RED;
 
   // the canvas to draw the ArrayList
   private DrawingCanvas myCanvas;
@@ -195,6 +198,12 @@ public class MyArrayList implements MyDataStructure {
     Location messageLocation = myList.get(0).getFrame().getLocation();
     messageLocation.translate(0, MESSAGE_OFFSET);
 
+    // MAKE THIS AS PRIVATE VARIABLE SO THAT IT CAN BE ACCESSED IN ANY METHODS
+    Text temp = new Text("", messageLocation, myCanvas);
+
+    temp.setColor(MESSAGE_COLOR);
+    temp.setFontSize(MESSAGE_FONT_SIZE);
+
     // for loop to iterate all of the cells
     for (MyCell cell : myList) {
 
@@ -204,25 +213,14 @@ public class MyArrayList implements MyDataStructure {
         // compare the cell value to passed in number
         if (value == number) {
 
-          new Text(number + " exists in the ArrayList", messageLocation,
-          myCanvas);
-
-          try {
-
-            Thread.sleep(3000);
-          }
-
-          catch (InterruptedException e) {
-
-          }
+          temp.setText(number + " exists in the ArrayList");
 
           return true;
         }
       }
     }
 
-    new Text(number + " doesn't exist in the ArrayList", messageLocation,
-    myCanvas);
+    temp.setText(number + " doesn't exist in the ArrayList");
 
     return false;
   }
