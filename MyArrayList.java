@@ -19,6 +19,8 @@ public class MyArrayList implements MyDataStructure {
 
   public static final int HALF = 2;
 
+  public static final int MESSAGE_OFFSET = 30;
+
   // the canvas to draw the ArrayList
   private DrawingCanvas myCanvas;
 
@@ -115,6 +117,40 @@ public class MyArrayList implements MyDataStructure {
       // position the text
       value.move(FRAME_SIZE / HALF - (value.getWidth() / HALF), 0);
     }
+
+    /**
+     * getValue method, a getter method that returns the int value in the Text
+     * object. 
+     * 
+     * @return an int representing the value in the cell, -1 for empty cell.
+     * 
+     * @author Jasper
+     */
+    public int getValue() {
+
+      // if there is a number, return it, if not return -1
+      try {
+
+        return Integer.parseInt(value.getText());
+      }
+
+      catch (NumberFormatException e) {
+
+        return -1;
+      }
+    }
+
+    /**
+     * getFrame method, a getter method that returns the FramedRect object.
+     * 
+     * @return a FramedRect object of the cell.
+     * 
+     * @author Jasper
+     */
+    public FramedRect getFrame() {
+
+      return cellFrame;
+    }
   }
 
   /**
@@ -152,7 +188,43 @@ public class MyArrayList implements MyDataStructure {
    */
   public boolean find(int number) {
 
-    return true;
+    // value to store the cell value
+    int value = 0;
+
+    // set up the message location
+    Location messageLocation = myList.get(0).getFrame().getLocation();
+    messageLocation.translate(0, MESSAGE_OFFSET);
+
+    // for loop to iterate all of the cells
+    for (MyCell cell : myList) {
+
+      // check if there is a value first
+      if ((value = cell.getValue()) != -1) {
+
+        // compare the cell value to passed in number
+        if (value == number) {
+
+          new Text(number + " exists in the ArrayList", messageLocation,
+          myCanvas);
+
+          try {
+
+            Thread.sleep(3000);
+          }
+
+          catch (InterruptedException e) {
+
+          }
+
+          return true;
+        }
+      }
+    }
+
+    new Text(number + " doesn't exist in the ArrayList", messageLocation,
+    myCanvas);
+
+    return false;
   }
 
   /**
