@@ -24,6 +24,8 @@ public class MyArrayList implements MyDataStructure {
   public static final int MESSAGE_FONT_SIZE = 30;
   public static final Color MESSAGE_COLOR = Color.RED;
 
+  private Text messageText;
+
   // the canvas to draw the ArrayList
   private DrawingCanvas myCanvas;
 
@@ -68,6 +70,16 @@ public class MyArrayList implements MyDataStructure {
       myList.add(new MyCell(i, new Location(x, yPos), myCanvas));
       x += FRAME_SIZE;
     }
+
+    // set up the message location
+    Location messageLocation = myList.get(0).getFrame().getLocation();
+    messageLocation.translate(0, MESSAGE_OFFSET);
+
+    // MAKE THIS AS PRIVATE VARIABLE SO THAT IT CAN BE ACCESSED IN ANY METHODS
+    messageText = new Text("", messageLocation, myCanvas);
+
+    messageText.setColor(MESSAGE_COLOR);
+    messageText.setFontSize(MESSAGE_FONT_SIZE);
   }
 
   /**
@@ -194,16 +206,6 @@ public class MyArrayList implements MyDataStructure {
     // value to store the cell value
     int value = 0;
 
-    // set up the message location
-    Location messageLocation = myList.get(0).getFrame().getLocation();
-    messageLocation.translate(0, MESSAGE_OFFSET);
-
-    // MAKE THIS AS PRIVATE VARIABLE SO THAT IT CAN BE ACCESSED IN ANY METHODS
-    Text temp = new Text("", messageLocation, myCanvas);
-
-    temp.setColor(MESSAGE_COLOR);
-    temp.setFontSize(MESSAGE_FONT_SIZE);
-
     // for loop to iterate all of the cells
     for (MyCell cell : myList) {
 
@@ -213,14 +215,14 @@ public class MyArrayList implements MyDataStructure {
         // compare the cell value to passed in number
         if (value == number) {
 
-          temp.setText(number + " exists in the ArrayList");
+          messageText.setText(number + " exists in the ArrayList");
 
           return true;
         }
       }
     }
 
-    temp.setText(number + " doesn't exist in the ArrayList");
+    messageText.setText(number + " doesn't exist in the ArrayList");
 
     return false;
   }
